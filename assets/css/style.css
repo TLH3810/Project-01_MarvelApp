@@ -1,6 +1,10 @@
-.background {
-    background-image: url("./assets/images/MarvelCharacters.jpg");
+body {
+    height: 800px;
+    width: 100%;
+    margin-bottom: 25px;
+    background-image: url("MarvelCharacters.jpg");
     background-size: cover;
+    background-position: center;
 }
 
 .jumbotron, h1{
