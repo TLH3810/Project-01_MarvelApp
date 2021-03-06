@@ -1,1 +1,33 @@
+body {
+    background-color: black;
+}
 
+.jumbotron, h1{
+    background-color: navy;
+    color: whitesmoke;
+    font-size: 300px;
+    text-align: center;
+}
+
+.container .character-select {
+    background-color: red;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color:white;
+ }   
+
+ .container .movie-info {
+     background-color: yellow;
+     color: black;
+     padding-top: 50px;
+     padding-bottom: 50px;
+     font-size: 25px;
+ }
+
+ .container .search-results {
+     background-color: green;
+     color: black;
+     padding-top: 50px;
+     padding-bottom: 50px;
+     font-size: 25px;
+ }
