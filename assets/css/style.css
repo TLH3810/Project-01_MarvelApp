@@ -1,5 +1,6 @@
-body {
-    background-color: black;
+.background {
+    background-image: url("./assets/images/MarvelCharacters.jpg");
+    background-size: cover;
 }
 
 .jumbotron, h1{
