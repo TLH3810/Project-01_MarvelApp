@@ -1,8 +1,6 @@
 
 var charEl = document.getElementById("inputCharacter");
 var submitEl = document.getElementById("submitBtn");
-let charName = $("#charName");
-let charDesc = $("#charDesc");
 var key = cryptedKey();
 
 var formSubmitHandler = function (event) {
