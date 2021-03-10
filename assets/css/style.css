@@ -24,10 +24,18 @@ body {
      font-size: 25px;
  }
 
- .container .search-results {
-     background-color: green;
-     color: black;
-     padding-top: 50px;
-     padding-bottom: 50px;
-     font-size: 25px;
- }
+
+
+.reviews .character-select {
+    background-color: red;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color:white;
+ }   
+ .reviews .movie-info {
+    background-color: rgb(132, 0, 255);
+    color: black;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-size: 25px;
+}
