@@ -17,7 +17,8 @@ var formSubmitHandler = function (event) {
 
 function getCharacter(charEl){
     var requestUrl = 'https://gateway.marvel.com:443/v1/public/characters?name=' + charEl + "&ts=1"  + "&apikey=" + key + "&hash=e2a858abc628bf93fb6ac66501d70db5" ;
-
+    let charInfo = $(".char-info");
+    // let charLinks =  $(".char-links");
     fetch(requestUrl)
     .then(function(response) {
         return response.json();
@@ -33,10 +34,15 @@ function getCharacter(charEl){
       let charImageExt = data.data.results[0].thumbnail.extension;
       //Constructing the image path
       let image = charImage + "/portrait_medium." + charImageExt
-      //setting the character name, description and image
-      $("#charName").text(charName);
-      $("#charDesc").text(charDesc);
-      $(".char-image").attr("src",image);
+       //setting the character name, description and image
+       $("#charName").text(charName);
+       $("#charDesc").text(charDesc);
+       $(".char-image").attr("src",image);
+        let x = data.data.results[0].urls;
+        $.each(x,function (i, item){
+          $("<li/>").html($("<a>").attr("href",item.url).text(charName + " " + item.type)).appendTo(charInfo);
+
+        });
       
     })
 }
