@@ -9,15 +9,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./assets/css/style.css"/>
-    
+    <style>
+        body { background-image: url('./assets/images/MarvelIndividuals.jpg'); }
+    </style>  
 </head>
 <body>
-    <style>
-        body { background-image: url(‘assets/images/MarvelIndividuals.jpg’); }
-        </style>
+  
 <div>
     <div class="jumbotron text-center">
         <H1 id="titleHomePage"><strong>MARVEL</strong></H1>
+    <h2>Movie Info OMDb</h2>
         </div>
         </div>
         <div class="container">
@@ -26,26 +27,33 @@
  </div class="row">
     <div class="col-med-8 text-center">
     <div class="search-results">
-        <img class="char-image">
-        <H1 id="charName"></H1>
-        <p id="charDesc"></p>
+        <img class="poster-image">
+        <H2 id="movieName"></H2>
+        <div id="plot"></div>
 
 </div>
 <div class="container">
     <div class="row">
         <div class="col-med-8 text-center">
     <div class="movie-info">
-    <p>Rotten Tomatoes</p>
+    <p>Movie Info</p>
+    <div id="year"></div>
+    <div id="rated"></div>
+    <div id="released"></div>
+    <div id="runtime"></div>
+    <div id="genre"></div>
     </div>
     </div>
     </div>
 </div>
     <div class="reviews">
         <div class="row">
-            <div class="col-med-8 text-center">
+          <div class="col-med-8 text-center">
         <div class="movie-info">
-    <p>Critic Reviews</p>
-
+    <p>People</p>
+<div id="director"></div>
+<div id="writer"></div>
+<div id="actors"></div>
 </div>
 </div>
 </div>
@@ -54,7 +62,10 @@
             <div class="row">
                 <div class="col-med-8 text-center">
             <div class="movie-info">
-    <p>Movies-Zip</p>
+    <p>Ratings</p>
+    <div id="ratings"></div>
+    <div id="metascore"></div>
+    <div id="imbdRating"></div>
             </div>
     </div>
 
