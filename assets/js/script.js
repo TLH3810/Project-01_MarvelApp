@@ -3,6 +3,7 @@ var charEl = document.getElementById("inputCharacter");
 var submitEl = document.getElementById("submitBtn");
 let movieBtnEl = document.getElementById("movieBtn");
 var movieInputEl = document.getElementById("inputMovie");
+var charArr = [];
 
 secretKey = prompt("Please enter the secret key");
 
@@ -10,7 +11,10 @@ secretKey = prompt("Please enter the secret key");
 function marvelChar(){
   var character = charEl.value;
   if (character) {
+    charArr.push(character);
+    localStorage.setItem("search", JSON.stringify(charArr));
     getCharacter(character);
+    renderSearchHistory();
   } else {
     alert('Please enter a character');
   }
@@ -19,6 +23,7 @@ function marvelChar(){
 function getCharacter(charEl) {
   var requestUrl = 'https://gateway.marvel.com:443/v1/public/characters?name=' + charEl + "&ts=1" + "&apikey=" + key + "&hash=e2a858abc628bf93fb6ac66501d70db5";
   let charInfo = $(".char-info");
+  charInfo.empty();
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -60,4 +65,21 @@ function movieSubmitForm(){
   var movieInputEl = $("#inputMovie").val();
   window.location.assign('./index2.html?repo=' + movieInputEl + "?key=" + secretKey)
 
+}
+
+
+//Function to display the list of search history accessing it from localStorage.
+function renderSearchHistory() {
+  var storedInitials = JSON.parse(localStorage.getItem("search"));
+  charArr = storedInitials;
+  var locationEl = $(".search-results");
+  var searchHistory = document.createElement("ul");
+  searchHistory.setAttribute("class", "list-group");
+  for (var i = 0; i < charArr.length; i++) {
+    var searchHistoryList = document.createElement("li");
+    searchHistoryList.setAttribute("class", "list-group-item");
+    searchHistoryList.textContent = charArr[i];
+    locationEl.append(searchHistory);
+  }
+  searchHistory.append(searchHistoryList);
 }
