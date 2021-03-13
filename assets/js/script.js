@@ -72,7 +72,7 @@ function movieSubmitForm(){
 function renderSearchHistory() {
   var storedInitials = JSON.parse(localStorage.getItem("search"));
   charArr = storedInitials;
-  var locationEl = $(".search-results");
+  var locationEl = $(".history-search-results");
   var searchHistory = document.createElement("ul");
   searchHistory.setAttribute("class", "list-group");
   for (var i = 0; i < charArr.length; i++) {
