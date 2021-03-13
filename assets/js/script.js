@@ -1,6 +1,7 @@
 
 var charEl = document.getElementById("inputCharacter");
 var submitEl = document.getElementById("submitBtn");
+let movieBtnEl = document.getElementById("movieBtn");
 var key = cryptedKey();
 
 var formSubmitHandler = function (event) {
@@ -8,9 +9,14 @@ var formSubmitHandler = function (event) {
     console.log(charEl.value);
   
     var character = charEl.value;
+    var movieInputEl = $("#inputMovie").val();
+    console.log(movieInputEl);
     if (character) {
         getCharacter(character);
-    } else {
+    } else if (movieInputEl){
+      getMovie(movieInputEl);
+    }
+    else{
       alert('Please enter a character');
     }
   };
@@ -41,7 +47,6 @@ function getCharacter(charEl){
         let x = data.data.results[0].urls;
         $.each(x,function (i, item){
           $("<li/>").html($("<a>").attr("href",item.url).text(charName + " " + item.type)).appendTo(charInfo);
-
         });
       
     })
@@ -54,3 +59,19 @@ function cryptedKey(){
   plaintext = bytes.toString(CryptoJS.enc.Utf8);
   return plaintext;
 }
+
+function getMovie(movieInput){
+  var moviesSearchUrl = "http://www.omdbapi.com/?t=" + movieInput + "&apikey=28447b28";
+
+  fetch(moviesSearchUrl)
+  .then(function(response){
+    return response.json();
+  })
+  .then(function(data){
+    console.log(data);
+    window.location.assign('./index2.html');
+  })
+
+
+}
+movieBtnEl.addEventListener("click", formSubmitHandler);
