@@ -2,7 +2,9 @@
 var charEl = document.getElementById("inputCharacter");
 var submitEl = document.getElementById("submitBtn");
 let movieBtnEl = document.getElementById("movieBtn");
-var key = cryptedKey();
+// var key = cryptedKey(secretKey);
+secretKey = prompt("Please enter the secret key");
+
 
 var formSubmitHandler = function (event) {
     event.preventDefault();
@@ -14,7 +16,7 @@ var formSubmitHandler = function (event) {
     if (character) {
         getCharacter(character);
     } else if (movieInputEl){
-      getMovie(movieInputEl);
+      window.location.assign('./index2.html?repo=' + movieInputEl + "?key=" + secretKey);
     }
     else{
       alert('Please enter a character');
@@ -24,7 +26,6 @@ var formSubmitHandler = function (event) {
 function getCharacter(charEl){
     var requestUrl = 'https://gateway.marvel.com:443/v1/public/characters?name=' + charEl + "&ts=1"  + "&apikey=" + key + "&hash=e2a858abc628bf93fb6ac66501d70db5" ;
     let charInfo = $(".char-info");
-    // let charLinks =  $(".char-links");
     fetch(requestUrl)
     .then(function(response) {
         return response.json();
@@ -53,25 +54,11 @@ function getCharacter(charEl){
 }
 submitEl.addEventListener("click", formSubmitHandler);
 
-function cryptedKey(){
-  key = prompt("Please enter the secret key");
-  var bytes = CryptoJS.AES.decrypt("U2FsdGVkX1+e5165l/K6go5vrvAMZlD+BURW1Nj4RUlmkl8sNkj4IiODCzBkJlniNHUdQNjfyVfBCPeyh/isAQ==", key.toString());
+var key = function cryptedKey(secretKey){
+  var bytes = CryptoJS.AES.decrypt("U2FsdGVkX1+e5165l/K6go5vrvAMZlD+BURW1Nj4RUlmkl8sNkj4IiODCzBkJlniNHUdQNjfyVfBCPeyh/isAQ==", secretKey.toString());
   plaintext = bytes.toString(CryptoJS.enc.Utf8);
   return plaintext;
 }
 
-function getMovie(movieInput){
-  var moviesSearchUrl = "http://www.omdbapi.com/?t=" + movieInput + "&apikey=28447b28";
 
-  fetch(moviesSearchUrl)
-  .then(function(response){
-    return response.json();
-  })
-  .then(function(data){
-    console.log(data);
-    window.location.assign('./index2.html');
-  })
-
-
-}
 movieBtnEl.addEventListener("click", formSubmitHandler);
