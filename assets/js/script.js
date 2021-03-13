@@ -1,27 +1,28 @@
 
 var charEl = document.getElementById("inputCharacter");
 var submitEl = document.getElementById("submitBtn");
-var key = cryptedKey();
+let movieBtnEl = document.getElementById("movieBtn");
+var movieInputEl = document.getElementById("inputMovie");
 
-var formSubmitHandler = function (event) {
-    event.preventDefault();
-    console.log(charEl.value);
-  
-    var character = charEl.value;
-    if (character) {
-        getCharacter(character);
-    } else {
-      alert('Please enter a character');
-    }
-  };
+secretKey = prompt("Please enter the secret key");
 
-function getCharacter(charEl){
-    var requestUrl = 'https://gateway.marvel.com:443/v1/public/characters?name=' + charEl + "&ts=1"  + "&apikey=" + key + "&hash=e2a858abc628bf93fb6ac66501d70db5" ;
 
-    fetch(requestUrl)
-    .then(function(response) {
-        return response.json();
-    }).then(function(data){
+function marvelChar(){
+  var character = charEl.value;
+  if (character) {
+    getCharacter(character);
+  } else {
+    alert('Please enter a character');
+  }
+}
+
+function getCharacter(charEl) {
+  var requestUrl = 'https://gateway.marvel.com:443/v1/public/characters?name=' + charEl + "&ts=1" + "&apikey=" + key + "&hash=e2a858abc628bf93fb6ac66501d70db5";
+  let charInfo = $(".char-info");
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    }).then(function (data) {
       console.log(data);
       //Getting the character name
       let charName = data.data.results[0].name;
@@ -36,15 +37,27 @@ function getCharacter(charEl){
       //setting the character name, description and image
       $("#charName").text(charName);
       $("#charDesc").text(charDesc);
-      $(".char-image").attr("src",image);
-      
+      $(".char-image").attr("src", image);
+      let x = data.data.results[0].urls;
+      $.each(x, function (i, item) {
+        $("<li/>").html($("<a>").attr("href", item.url).text(charName + " " + item.type)).appendTo(charInfo);
+      });
+
     })
 }
-submitEl.addEventListener("click", formSubmitHandler);
-
-function cryptedKey(){
-  key = prompt("Please enter the secret key");
-  var bytes = CryptoJS.AES.decrypt("U2FsdGVkX1+e5165l/K6go5vrvAMZlD+BURW1Nj4RUlmkl8sNkj4IiODCzBkJlniNHUdQNjfyVfBCPeyh/isAQ==", key.toString());
+submitEl.addEventListener("click", marvelChar);
+var key = cryptedKey(secretKey);
+function cryptedKey(secretKey) {
+  var bytes = CryptoJS.AES.decrypt("U2FsdGVkX1+e5165l/K6go5vrvAMZlD+BURW1Nj4RUlmkl8sNkj4IiODCzBkJlniNHUdQNjfyVfBCPeyh/isAQ==", secretKey.toString());
   plaintext = bytes.toString(CryptoJS.enc.Utf8);
+  console.log(plaintext);
   return plaintext;
+}
+
+movieBtnEl.addEventListener("click",  movieSubmitForm);
+
+function movieSubmitForm(){
+  var movieInputEl = $("#inputMovie").val();
+  window.location.assign('./index2.html?repo=' + movieInputEl + "?key=" + secretKey)
+
 }
